@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-center flex-wrap">
+        <app-user
+          *ngFor="let user of usersFromService"
+          [user]="user"
+        ></app-user>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="getUsers()">Get Users</button>
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-center flex-wrap">
+        <app-user *ngFor="let user of usersFromStore" [user]="user"></app-user>
+      </div>
+    </div>
+  </div>
+</div>
