@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService {
-  URL = 'https://reqres.in/api';
+  readonly URL = 'https://reqres.in/api';
   constructor(private http: HttpClient) {}
   getUsers(): Observable<User[]> {
     return this.http.get(`${this.URL}/users`).pipe(

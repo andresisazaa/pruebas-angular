@@ -35,8 +35,8 @@ describe('UserComponent', () => {
   it('Deberia renderizar el nombre completo en h5.card-title', () => {
     const compiled = fixture.debugElement.query(By.css('h5.card-title'));
     const element: HTMLElement = compiled.nativeElement;
-    const nombreMock = `${userMock.firstname} ${userMock.lastname}`;
-    expect(element.textContent).toContain(nombreMock);
+    const name = `${userMock.firstname} ${userMock.lastname}`;
+    expect(element.textContent).toContain(name);
   });
 
   it('Deberia renderizar el email en p.card-text', () => {
@@ -47,7 +47,30 @@ describe('UserComponent', () => {
 
   it('Deberia asignar el atributo src con la imagen en img.card-img-top', () => {
     const compiled = fixture.debugElement.query(By.css('img.card-img-top'));
-    const element: HTMLImageElement = compiled.nativeElement;
-    expect(element.src).toBe(userMock.avatar);
+    const img: HTMLImageElement = compiled.nativeElement;
+    expect(img.src).toBe(userMock.avatar);
+  });
+
+  it('Deberia llamarse selectUser cuando se da click en button.btn.btn-secondary', () => {
+    const button = fixture.debugElement.query(
+      By.css('button.btn.btn-secondary')
+    );
+    const selectUserSpy = jest.spyOn(component, 'selectUser');
+    button.triggerEventHandler('click', null);
+    expect(selectUserSpy).toHaveBeenCalled();
+  });
+
+  it('Deberia emitir onSelectUser cuando se llame selectUser', () => {
+    const onSelectUserSpy = jest.spyOn(component.onSelectUser, 'emit');
+    component.selectUser();
+    expect(onSelectUserSpy).toHaveBeenCalledWith(component.user);
+  });
+
+  it('Deberia renderizar el email en p.card-text 2', () => {
+    const compiled = fixture.debugElement.query(By.css('p.card-text'));
+    const element: HTMLElement = compiled.nativeElement;
+    component.user.email = 'john.doe@example.com';
+    fixture.detectChanges();
+    expect(element.textContent).toContain('john.doe@example.com');
   });
 });

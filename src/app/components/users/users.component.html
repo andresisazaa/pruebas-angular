@@ -5,6 +5,7 @@
         <app-user
           *ngFor="let user of usersFromService"
           [user]="user"
+          (onSelectUser)="getUserSelected($event)"
         ></app-user>
       </div>
     </div>

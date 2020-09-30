@@ -2,8 +2,9 @@
   <img class="card-img-top" [src]="user.avatar" alt="Card image cap" />
   <div class="card-body">
     <h5 class="card-title">{{ user.firstname }} {{ user.lastname }}</h5>
-    <p class="card-text">
-      {{ user.email }}
-    </p>
+    <p class="card-text">{{ user.email }}</p>
+    <button class="btn btn-secondary" (click)="selectUser()">
+      Seleccionar
+    </button>
   </div>
 </article>

@@ -12,8 +12,9 @@ import { AppState } from 'src/app/store/state/app.state';
   templateUrl: './users.component.html',
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  usersFromService: User[] = [];
-  usersFromStore: User[] = [];
+  usersFromService: User[];
+  usersFromStore: User[];
+  userSelected: User;
   subscription: Subscription;
 
   constructor(
@@ -32,6 +33,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.store.dispatch(fetchUsers());
   }
 
+  getUserSelected(user: User): void {
+    this.userSelected = user;
+  }
+
   subscribeToUserService(): Subscription {
     return this.userService
       .getUsers()
@@ -39,9 +44,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   subscribeToUserStore(): Subscription {
-    return this.store.pipe(select(usersSelect)).subscribe((users) => {
-      this.usersFromStore = users;
-    });
+    return this.store
+      .pipe(select(usersSelect))
+      .subscribe((users: User[]) => (this.usersFromStore = users));
   }
 
   ngOnDestroy(): void {
